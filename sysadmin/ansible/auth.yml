@@ -1,0 +1,32 @@
+---
+- hosts: servers
+  tasks:
+    - name: Copy .ssh credentials
+      copy:
+        src: /Users/vishal/.ssh/sample_folder_name/
+        dest: /root/.ssh/
+        owner: root
+        group: root
+        force: no
+        mode: '0600'
+    - name: Evaluate authentication agent and add ssh-key
+      shell: |
+        eval "$(ssh-agent)"
+        ssh-add ~/.ssh/id_rsa
+    - name: git config
+      git_config:
+        name: user.name
+        value: "Vishal Apte"
+    - name: git config
+      git_config:
+        name: user.email
+        value: "vishalapte@gmail.com"
+    - name: git config
+      git_config:
+        name: core.editor
+        value: vim
+    - name: git config
+      git_config:
+        name: color.ui
+        value: auto
+...
