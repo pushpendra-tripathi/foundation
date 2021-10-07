@@ -19,7 +19,9 @@ alias quxfind='find . -type f -name "$1" -print0 | xargs -0 grep $2'
 # python shortcuts
 alias profile="python -m cProfile"
 
-if [ -f macosx.sh ]; then
-  echo "Loading macosx.sh"
-  source macosx.sh
-fi
+for f in images macosx python; do
+  qux="~/.qux_${f}.sh"
+  if [ -f ${qux} ]; then
+    source ${qux}
+  fi
+done
