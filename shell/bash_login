@@ -1,0 +1,64 @@
+# vim: filetype=sh
+
+color_black='\e[0;30m'
+color_red='\e[0;31m'
+color_green='\e[0;32m'
+color_yellow='\e[0;33m'
+color_blue='\e[0;34m'
+color_purple='\e[0;35m'
+color_cyan='\e[0;36m'
+color_reset='\e[m'
+
+# prompt
+if [ $USER == 'root' ]; then
+  echo "user: root"
+  export PS1="[${color_red}\A${color_reset}] ${color_red}\u@\h${color_reset}\n(\w)\$(__git_ps1) "
+else
+  echo "user: ${USER}"
+  export PS1="[${color_yellow}\A${color_reset}] ${color_yellow}\u@\h${color_reset}\n(\w)\$(__git_ps1) "
+fi
+
+# bash_aliases
+if [ -f ~/.bash_aliases ]; then
+  echo "Loading bash_aliases"
+  source ~/.bash_aliases
+fi
+
+# pip
+if [[ $OSTYPE == linux* ]]; then
+  export PYTHONPATH2=/usr/local/lib/python2.7/dist-packages:/usr/local/lib/python2.7/site-packages
+  export PYTHONPATH3=/usr/lib/python3/dist-packages:/usr/local/lib/python3.6/site-packages
+elif [[ $OSTYPE == darwin* ]]; then
+  export PIP_REQUIRE_VIRTUALENV=true
+
+  gpip() {
+    PIP_REQUIRE_VIRTUALENV=""
+    pip "$@"
+    PIP_REQUIRE_VIRTUALENV=true
+  }
+fi
+
+# github shortcuts
+if [[ $OSTYPE == linux* ]]; then
+  if [[ -e /etc/bash_completion.d/git-prompt ]]; then
+    source /etc/bash_completion.d/git-prompt
+  fi
+elif [[ $OSTYPE == darwin* ]]; then
+  if [[ -e /Library/Developer/CommandLineTools/usr/share/git-core/git-prompt.sh ]]; then
+    source /Library/Developer/CommandLineTools/usr/share/git-core/git-prompt.sh
+  fi
+else
+  __git_ps1() { git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\:\1/'; }
+fi
+
+export GIT_PS1_SHOWDIRTYSTATE=1
+export GIT_PS1_SHOWSTASHSTATE=1
+export GIT_PS1_SHOWUNTRACKEDFILES=1
+
+# manage bash history
+export HISTSIZE=10000
+export HISTCONTROL=ignoreboth:erasedups
+export HISTIGNORE='ls:bg:fg:history'
+export HISTTIMEFORMAT='%F %T '
+
+export FUNCTIONS_CORE_TOOLS_TELEMETRY_OPTOUT=true
