@@ -1,6 +1,7 @@
 quxvenv() {
-  python3 -m venv env
-  source env/bin/activate
+  python3 -m venv venv
+  # TODO: update vent to add runserver using sed
+  source venv/bin/activate
   pip install --upgrade pip
   pip install wheel
   pip install pipdeptree
