@@ -10,18 +10,33 @@ else
 fi
 
 gzipchk() {
-    curl -s -L -I -H 'Accept-Encoding: gzip,deflate' "$@" | grep --color "Content-Encoding"
+  curl -s -L -I -H 'Accept-Encoding: gzip,deflate' "$@" | grep --color "Content-Encoding"
 }
 
-alias pyclean='find . -type d -name "__pycache__" -print0 | xargs -0 rm -rf'
-alias quxfind='find . -type f -name "$1" -print0 | xargs -0 grep $2'
+pyclean() {
+  target=${1:-.}
+
+  find ${target} -type d -name "__pycache__" -print0 | xargs -0 rm -rf
+}
+
+quxfind() {
+  if [[ $1 == "" ]]; then
+    echo "Usage: ${FUNCNAME[0]} <search_string> [<file_glob>]"
+    return
+  fi
+
+  find_name=${2:-*.py}
+
+  # Always ignore virtualenv folders
+  find . -type f -name "${find_name}" -print0 | xargs -0 grep -i "$1" | grep -v "[v]*env/"
+}
 
 # python shortcuts
 alias profile="python -m cProfile"
 
-for f in images macosx python; do
-  qux="~/.qux_${f}.sh"
-  if [ -f ${qux} ]; then
-    source ${qux}
+for f in `ls $HOME/.qux_*.sh`; do
+  if [ -f ${f} ]; then
+    echo "Loading ${f}"
+    source ${f}
   fi
 done
