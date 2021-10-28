@@ -1,8 +1,8 @@
 #!/bin/bash
 
-if [[ -z $3 ]]; then
-    echo "Usage: $(basename $0) output_file_name input_file input_file ..."
-    echo "Must specify output file name and at least two input files"
+if [[ -z $2 ]]; then
+    echo "Usage: $(basename $0) output_file_name input_file ..."
+    echo "Must specify output file name and at least one input file"
     exit 0
 fi
 
