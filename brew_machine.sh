@@ -10,3 +10,5 @@ brew install mysql
 brew install redis
 
 brew install imagemagick
+brew install exiftool
+brew install ffmpeg
