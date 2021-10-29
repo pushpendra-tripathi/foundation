@@ -1,17 +1,12 @@
 dj () {
-    cd ${rootdir}
+    cd PROJDIR
     if [[ $1 == "" ]]; then
-        echo "python manage.py help --settings=${projdir}.settings.dev"
-        echo
-        python manage.py help --settings=${projdir}.settings.dev
+        python manage.py help --settings=PROJECT.settings.dev
     else
-        echo "python manage.py $1 ${@:2} --settings=${projdir}.settings.dev"
-        echo
-        python manage.py $1 ${@:2} --settings=${projdir}.settings.dev
+        python manage.py $1 ${@:2} --settings=PROJECT.settings.dev
     fi
 }
 
 runserver () {
-    cd ${rootdir}
-    python manage.py runserver --settings=${projdir}.settings.dev
+    dj runserver
 }
