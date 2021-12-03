@@ -54,7 +54,7 @@ pdf2jpg() {
 img_padding() {
   if [ "$1" == "" ]; then
     echo Usage: $0 target padding bgcolor;
-    exit 1
+    exit 0
   fi
 
   if [ "$2" == "" ]; then

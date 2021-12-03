@@ -16,9 +16,9 @@ _formatpayment() {
     echo "---"
     if [ -f $1 ]; then
         w=`identify -format '%w' ${1}`
-        wnew=$((w + 0))
+        wnew=$((w + 100))
         h=`identify -format '%h' ${1}`
-        hnew=$((h + 0))
+        hnew=$((h + 100))
 
         echo "1. Add 100px to border: ${w}x${h} => ${wnew}x${hnew}"
         convert -size ${wnew}x${hnew} xc:white ${1} -gravity center -composite ${target};

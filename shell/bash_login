@@ -44,7 +44,10 @@ if [[ $OSTYPE == linux* ]]; then
     source /etc/bash_completion.d/git-prompt
   fi
 elif [[ $OSTYPE == darwin* ]]; then
-  if [[ -e /Library/Developer/CommandLineTools/usr/share/git-core/git-prompt.sh ]]; then
+  if [[ -e $HOME/.git-prompt.sh ]]; then
+    # curl -o ~/.git-prompt.sh https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh
+    source $HOME/.git-prompt.sh
+  elif [[ -e /Library/Developer/CommandLineTools/usr/share/git-core/git-prompt.sh ]]; then
     source /Library/Developer/CommandLineTools/usr/share/git-core/git-prompt.sh
   fi
 else
@@ -61,4 +64,12 @@ export HISTCONTROL=ignoreboth:erasedups
 export HISTIGNORE='ls:bg:fg:history'
 export HISTTIMEFORMAT='%F %T '
 
+# Recommended by brew doctor
+if [[ ! $PATH =~ ^/usr/local/sbin:|:/usr/local/sbin:|:/usr/local/sbin$ ]]; then
+  echo "Adding /usr/local/sbin to $PATH"
+  export PATH=/usr/local/sbin:$PATH
+fi
+
+# OPT OUT of sending telemetry data to Microsoft
+# docs.microsoft.com/en-us/dotnet/core/tools/telemetry
 export FUNCTIONS_CORE_TOOLS_TELEMETRY_OPTOUT=true

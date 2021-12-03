@@ -1,12 +1,8 @@
 dj () {
-    cd PROJDIR
+    cd $HOME/dev/PROJECT
     if [[ $1 == "" ]]; then
-        python manage.py help --settings=PROJECT.settings.dev
+        python manage.py help --settings=project.settings.dev
     else
-        python manage.py $1 ${@:2} --settings=PROJECT.settings.dev
+        python manage.py $1 ${@:2} --settings=project.settings.dev
     fi
-}
-
-runserver () {
-    dj runserver
 }

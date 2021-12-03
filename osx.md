@@ -23,3 +23,17 @@ sudo chsh -s /usr/bin/false username
 ```
 sudo chsh -s /bin/bash username
 ```
+
+### Hide a user account
+
+Hide the user account
+
+```
+sudo dscl . create /Users/username isHidden 1
+```
+
+Show the user account
+
+```
+sudo dscl . create /Users/username isHidden 1
+```

@@ -13,6 +13,7 @@ quxvenv() {
 
     if [ -f ${pipreq} ]; then
       pip install -r ${pipreq}
+      break
     fi
   done
 }
